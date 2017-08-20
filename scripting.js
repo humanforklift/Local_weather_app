@@ -13,7 +13,6 @@ $(document).ready(function() {
         //function to get weather at user's location
         function getWeather(lat, lon) {
                 $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=3f82316c343df650f0204bf9dfaf2b42&units=metric", function(data) {
-                        console.log(data);
 
                         //store JSON data if available
                         if (storageAvailable) {

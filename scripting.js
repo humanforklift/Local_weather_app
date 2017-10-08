@@ -12,8 +12,8 @@ $(document).ready(function() {
 
         //function to get weather at user's location
         function getWeather(lat, lon) {
-                $.getJSON("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&APPID=3f82316c343df650f0204bf9dfaf2b42&units=metric", function(data) {
-
+                $.getJSON("https://fcc-weather-api.glitch.me/api/current?lon=" + lon + "&lat=" + lat, function(data) {
+                        console.log(data);
                         //store JSON data if available
                         if (storageAvailable) {
                                 sessionStorage.weatherJSON = JSON.stringify(data);
@@ -36,25 +36,26 @@ $(document).ready(function() {
 
         //function to select background according to time and weather
         function chooseBackground(hours, id) {
+                console.log(id === 800);
                 var night = (hours < 5 || hours > 18);
                 //clear skies
-                ((id == 800) && night) ? $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/clear%20night%20sky_zpscolgud7d.jpg')"}) : $("body").css({"backgroundImage": "url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/sunny_zps82inppid.jpg')"});
+                ((id === 800) && night) ? $("body").css({"backgroundImage":"url('images/clear night sky.jpg')"}) : $("body").css({"backgroundImage":"url('images/sunny.jpg')"});
                 //few clouds
-                ((id == 801) && night) ? $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/cloudy%20night_zpsonet4osf.jpg')"}) : $("body").css({"backgroundImage": "url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/cloudy_zpstzm1rzrl.jpg')"});
+                ((id === 801) && night) ? $("body").css({"backgroundImage":"url('images/cloudy night.jpg')"}) : $("body").css({"backgroundImage":"url('images/cloudy.jpg')"});
                 //heavier clouds
-                (id >= 802 && id <= 804) && night ? $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/cloudy%20night_zpsonet4osf.jpg')"}) : $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/dark%20cloud_zpshuex8ky1.jpg')"});
+                ((id >= 802 && id <= 804) && night) ? $("body").css({"backgroundImage":"url('images/cloudy night.jpg')"}) : $("body").css({"backgroundImage":"url('images/dark cloud.jpg')"});
                 //thunderstorm
                 if (id >= 200 && id <= 232)
-                        $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/thunderstorm_zpsw0futptb.jpg')"});
+                        $("body").css({"backgroundImage":"url('images/thunderstorm.jpg')"});
                 //drizzle and rain
                 if (id >= 300 && id <= 531)
-                        $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/rain_zpsjuq1tgxw.jpg')"});
+                        $("body").css({"backgroundImage":"url('images/rain.jpg')"});
                 //snow
                 if (id >= 600 && id <= 622)
-                        $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/snow_zpsrmwgz8hd.jpg')"});
+                        $("body").css({"backgroundImage":"url('images/snow.jpg')"});
                 //fog, mist, haze etc
                 if (id >= 701 && id <= 741)
-                        $("body").css({"backgroundImage":"url('http://i1378.photobucket.com/albums/ah103/humanforklift/Weather%20app/haze_zpst3jnkzuw.jpg')"});
+                        $("body").css({"backgroundImage":"url('images/haze.jpg')"});
         }
 
         //function to create weather div
@@ -112,14 +113,14 @@ $(document).ready(function() {
         if (storageAvailable) {
 
                 //get user's IP address
-                $.getJSON("http://ip-api.com/json", function(data) {
+                $.getJSON("https://ipapi.co/json", function(data) {
 
                         //generate time info
                         getTime();
 
                         //store user's IP address
-                        sessionStorage.lat = data.lat;
-                        sessionStorage.lon = data.lon;
+                        sessionStorage.lat = data.latitude;
+                        sessionStorage.lon = data.longitude;
                 });
 
                 //clicking the weather button triggers the following events

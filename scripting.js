@@ -156,13 +156,13 @@ $(document).ready(function() {
                 //clicking the weather button triggers the following events
                 $("#getWeather").on("click", function() {
                         //get user's IP address
-                        $.getJSON("http://ip-api.com/json", function(data) {
+                        $.getJSON("https://ipapi.co/json", function(data) {
 
                         //clear screen of all elements
                         $("#content, #get-weather-div, #warning").remove();
 
                         //generate weather info
-                        getWeather(data.lat, data.lon);
+                        getWeather(data.latitude, data.longitude);
 
                         //generate weather display
                         createWeatherDisplay();
